@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>{{ title }} - My Flask Application</title>
+
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+	<script src="{{ url_for('static', filename='scripts/jquery-2.2.0.js') }}"></script>
+	<script src="{{ url_for('static', filename='scripts/bootstrap.min.js') }}"></script>
+	<link href="{{ url_for('static', filename='content/bootstrap.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ url_for('static', filename='content/site.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">Mortar</a>
+            </div>
+            <div class="navbar-collapse collapse">
+	            <ul class="nav navbar-nav">
+                {#
+		            <li><a href="{{ url_for('home') }}">Home</a></li>
+		            <li><a href="{{ url_for('showrecipes') }}">Recipes</a></li>
+                    <li><a href="{{ url_for('all_ingredients') }}">Ingredients</a></li>
+                    <li><a href="{{ url_for('api') }}">API</a></li>
+					{% if session['username'] %}
+		            <li><a href="{{ url_for('addrecipe') }}">Submit Recipe</a></li>
+					{% endif %}
+                 #}
+	            </ul>
+                {#
+	            <ul class="nav navbar-nav navbar-right">
+					{% with username = session['username'] %}
+		            {% if username %}
+		            <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ username }} <span class="caret"></span></a>
+			            <ul class="dropdown-menu">
+				            <li><a href="{{ url_for('userProfile', name = username) }}">View Profile</a></li>
+							<li><a href="{{ url_for('userProfile', name = username) }}">Settings</a></li>
+				            <li role="separator" class="divider"></li>
+				            <li><a href="{{ url_for('logout') }}">Log out</a></li>
+			            </ul>
+		            </li>
+		            {% else %}
+		            <li><a href="{{ url_for('login') }}">Register/Login</a></li>
+		            {% endif %}
+					{% endwith %}
+	            </ul>
+                #}
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="list-group flashes alert alert-danger alert-dismissible" role="alert">
+            {% for message in messages %}
+            <button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div>{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+        <hr/>
+        <footer>
+            <p>&copy; {{ year }} - Mortar</p>
+        </footer>
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+

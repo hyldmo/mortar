@@ -1,0 +1,78 @@
+version: "2"
+
+services:
+  api:
+    build:
+      context: ./api
+
+    volumes:
+      - ./api:/api
+
+    environment:
+      DEBUG: "True"
+      DOCKER: "True"
+      PORT: 5000
+
+    ports:
+      - 5000:5000
+
+    links:
+      - db
+
+  web:
+    build:
+      context: ./client
+
+    # volumes:
+    #   - ./client:/clientyServer
+
+    environment:
+      DEBUG: "True"
+      DOCKER: "True"
+      PORT: 8080
+
+    links:
+      - api
+      - db
+
+  auth:
+    build:
+      context: ./OAuth2-Server
+
+    environment:
+      APP_ENV: "local"
+      APP_DEBUG: "true"
+      APP_KEY: "base64:hgcGoGXHZZcNivb5idmvpCfCxgC0w8pDfa9Xl0s/iBw:"
+      APP_URL: "http://mortar.no"
+
+      DB_CONNECTION: "pgsql"
+      DB_HOST: "db"
+      DB_PORT: 5432
+      DB_DATABASE: "homestead"
+      DB_USERNAME: "homestead"
+      DB_PASSWORD: "secret"
+
+      CACHE_DRIVER: "file"
+      SESSION_DRIVER: "file"
+      QUEUE_DRIVER: "sync"
+
+      REDIS_HOST: "127.0.0.1"
+      REDIS_PASSWORD: "null"
+      REDIS_PORT: 6379
+
+      MAIL_DRIVER: "smtp"
+      MAIL_HOST: "mailtrap.io"
+      MAIL_PORT: 2525
+      MAIL_USERNAME: "null"
+      MAIL_PASSWORD: "null"
+      MAIL_ENCRYPTION: "null"
+      DOCKER: "True"
+
+    links:
+      - userdb
+
+  userdb:
+    image: postgres:latest
+
+  db:
+    image: mongo:latest

@@ -1,0 +1,29 @@
+﻿{% extends "layout.html" %}
+
+{% macro with_errors(field) %}
+    {% if not field.errors %}
+        {{ field(**kwargs) }}
+    {% else %}
+        {% set css_class = 'has-danger ' + kwargs.pop('class', '') %}
+        {{ field(class=css_class, **kwargs) }}
+        {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ error|e }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+
+<div id="recipe"></div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ RESOURCE_URL }}{{ url_for('static', filename='scripts/addrecipe.js') }}"></script>
+{% endblock %}

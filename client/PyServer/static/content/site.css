@@ -1,0 +1,53 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    overflow-y: scroll;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.list-group-dropdown-header {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 0;
+}
+.list-group-dropdown > .list-group-item:first-child {
+    border-radius: 0;
+}
+.list-group-dropdown > .list-group-item {
+    border-top: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default 
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+*/
+
+/* styles for validation helpers */
+.alert {
+	padding-left: 15px; 
+}
+
+span.input-group-btn:not(:first-child) > select.form-control {
+    width: auto;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+span.input-group-btn:last-child > select.form-control:not(focus) {
+    border-left-width: 0px;
+    margin-left: 0px;
+}
+
+span.input-group-btn:last-child > select.form-control:focus {
+    border-left-width: 1px;
+    margin-left: -1px;
+    border-bottom-right-radius: 0px;
+}

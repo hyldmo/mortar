@@ -1,0 +1,4 @@
+__all__ = ['index', 'users', 'recipes', 'ingredients', 'errors']
+
+apiUrl = 'api'  # This should not be here
+webpackURL = 'http://localhost:1337'

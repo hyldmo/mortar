@@ -1,0 +1,49 @@
+@import "variables";
+
+#filters{
+    h3 {
+        margin: 0;
+    }
+    hr {
+        @margin: 20px;
+        margin-top: @margin / 2;
+        margin-bottom: @margin;
+    }
+}
+
+.filters {
+
+    &-ingredient {
+        padding: 5px;
+        border-radius: 4px;
+        margin-bottom: 5px;
+
+        .glyphicon-remove {
+            float: right;
+        }
+
+        button {
+            margin-top: 1px;
+            border: none;
+            outline: 0;
+            background: none;
+        }
+
+        &.include {
+            color: @green-darker;
+            border: 1px solid @green;
+
+            background-color: @green-bright;
+
+        }
+
+        &.exclude {
+            color: @red-darker;
+            border: 1px solid @red;
+
+            background-color: @red-bright;
+        }
+    }
+
+
+}

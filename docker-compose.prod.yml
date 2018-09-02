@@ -1,0 +1,87 @@
+version: "2"
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+
+    ports:
+      - "8080:80"
+      - "433:433"
+
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/public:/var/www/public
+    #  - ./nginx/laravel.conf:/etc/nginx/sites-enabled/laravel
+
+    links:
+      - api
+      - web
+      - auth
+
+  api:
+    build:
+      context: ./api
+
+    environment:
+      DEBUG: "False"
+      DOCKER: "True"
+      PORT: 8080
+
+    links:
+      - db
+
+  web:
+    build:
+      context: ./client
+
+    environment:
+      DEBUG: "False"
+      DOCKER: "True"
+      PORT: 8080
+
+    links:
+      - api
+      - db
+
+  auth:
+    build:
+      context: ./OAuth2-Server
+
+    environment:
+      APP_ENV: "local"
+      APP_DEBUG: "false"
+      APP_KEY: "base64:hgcGoGXHZZcNivb5idmvpCfCxgC0w8pDfa9Xl0s/iBw:"
+      APP_URL: "http://mortar.no"
+
+      DB_CONNECTION: "pgsql"
+      DB_HOST: "127.0.0.1"
+      DB_PORT: 5432
+      DB_DATABASE: "homestead"
+      DB_USERNAME: "homestead"
+      DB_PASSWORD: "secret"
+
+      CACHE_DRIVER: "file"
+      SESSION_DRIVER: "file"
+      QUEUE_DRIVER: "sync"
+
+      REDIS_HOST: "127.0.0.1"
+      REDIS_PASSWORD: "null"
+      REDIS_PORT: 6379
+
+      MAIL_DRIVER: "smtp"
+      MAIL_HOST: "mailtrap.io"
+      MAIL_PORT: 2525
+      MAIL_USERNAME: "null"
+      MAIL_PASSWORD: "null"
+      MAIL_ENCRYPTION: "null"
+      DOCKER: "True"
+
+    links:
+      - userdb
+
+  userdb:
+    image: postgres:latest
+
+  db:
+    image: mongo:latest

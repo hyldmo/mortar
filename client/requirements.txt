@@ -1,0 +1,7 @@
+waitress==0.8.10
+Flask==0.10.1
+Flask-WTF==0.12
+pymongo==3.2.2
+passlib==1.6.5
+WTForms==2.1
+python-decouple==3.0

@@ -1,0 +1,13 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div id="recipes">
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ RESOURCE_URL }}{{ url_for('static', filename='scripts/recipes.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,72 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<style type="text/css">
+	.panel-box {
+		cursor: pointer;
+		border: 1px solid transparent;
+		border-color: #e6e6e6;
+		border-radius: 0;
+
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		box-sizing: content-box;
+
+		-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, .2);
+		-ms-box-shadow: 0 3px 3px rgba(0, 0, 0, .2);
+		box-shadow: 0 3px 3px rgba(0, 0, 0, .2);
+
+		width: 200px;
+		margin: 15px;
+		padding: 0;
+		transition: transform 0.3s; 
+	}
+	.panel-box a {
+		position:absolute; 
+		width:100%;
+		height:100%;
+		top:0;
+		left: 0;
+
+		z-index: 1;
+	}
+
+	.panel-box:hover {
+		transform: scale(1.15);
+	}
+
+	.panel-box .panel-title,
+	.panel-box .panel-body  {
+		margin: 0;
+		height: inherit;
+		width: inherit;
+	}
+	.panel-box .panel-title img {
+		height: inherit;
+		width: inherit;
+	}
+	.panel-box .panel-title img {
+		
+	}
+</style>
+
+<h2>{{ title }}</h2>
+
+<hr/>
+<div id="recipes" class="row">
+	
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/react.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/react-dom.js') }}"></script>
+
+{% if app.debug %}
+    <script src="{{ webpackURL }}{{ url_for('static', filename='scripts/recipes.js') }}"></script>
+{% else %}
+    <script src="{{ url_for('static', filename='scripts/recipes.js') }}"></script>
+{% endif %}
+{% endblock %}

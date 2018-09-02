@@ -1,0 +1,25 @@
+﻿{% extends "layout.html" %}
+{% block content %}
+<link href="{{ url_for('static', filename='content/showrecipe.css') }}" rel="stylesheet" />
+
+<h2>{{ title }}</h2>
+<hr/>
+<div id="recipe" class="row">
+	<div id="ingredients" class="col-ts-24 col-xs-10 col-sm-8 col-md-6 col-lg-6">
+		<h3>Ingredients</h3>
+		<ul id="ingredients_list" class="list-unstyled well well-sm">
+			{% for item in recipe.ingredients %}
+			<li class="row">
+				<div class="col-ts-3 col-xs-5 col-sm-4 col-md-4 col-lg-3">{{ item['amount'] }}</div>
+				<div class="col-ts-4 col-xs-5 col-sm-4 col-md-4 col-lg-4 text-lowercase">{{ item['unit'] }}</div>
+				<div class="col-ts-16 col-xs-14 col-sm-16 col-md-16 col-lg-17 text-lowercase">{{ item['substance'] }}</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div id="directions" class="">
+		<h3>Directions</h3> 
+		{{ recipe.directions }}
+	</div>
+</div>
+{% endblock %}

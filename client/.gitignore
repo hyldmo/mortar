@@ -1,0 +1,58 @@
+# Created by https://www.gitignore.io/api/visualstudio
+
+### VisualStudio ###
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vs
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Click-Once directory
+publish/
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+# TODO: Comment the next line if you want to checkin your web deploy settings 
+# but database connection strings (with potential passwords) will be unencrypted
+*.pubxml
+*.publishproj
+
+# NuGet Packages
+packages/
+# The packages folder can be ignored because of Package Restore
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+
+# Custom
+*.lnk
+**__pycache__
+venv/
+ptvs**
+*.config
+Webpack/bower_components/
+Webpack/node_modules/
+Webpack/public/
+Webpack/assets/
+**_references.js
+*ntvs*
+*.log

@@ -1,0 +1,95 @@
+@import "variables";
+@import "filters";
+
+.navbar-inverse {
+    @color: #10a305;
+    @text-color: #fcfff2;
+
+    background-color: @color;
+    border-color: @color;
+
+
+    .navbar-brand {
+        color: @text-color;
+        text-shadow: none;
+    }
+
+    .navbar-nav > li > a {
+        color: @text-color;
+
+    }
+}
+
+.panel-box {
+    cursor: pointer;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    box-sizing: content-box;
+
+    margin-left: -8px;
+    margin-right: -8px;
+
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+
+    height: 270px;
+    padding: 0;
+    @in-speed: 0.2s;
+    @out-speed: 0.05s;
+
+    transition: transform @out-speed;
+
+    &:hover {
+        transition: transform @in-speed;
+        transform: scale(1.00);
+        z-index: 100;
+
+        .panel-title {
+            max-height: 0;
+            transition: max-height @in-speed;
+        }
+
+        .ingredients {
+            opacity: 1;
+            transition: opacity @in-speed;
+        }
+    }
+
+    .ingredients {
+        opacity: 0;
+        transition: opacity @out-speed;
+    }
+
+    a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .panel-body {
+        padding: 10px;
+        padding-top: 4px;
+
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+    }
+
+    .panel-title {
+        height: 75%;
+        max-height: 75%;
+        transition: @out-speed;
+
+        &.bg-image {
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}
+
+

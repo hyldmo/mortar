@@ -1,0 +1,50 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+{% macro with_errors(field) %}
+	{% if not field.errors %}
+		{{ field(**kwargs) }}
+	{% else %}
+		{% set css_class = 'has-danger ' + kwargs.pop('class', '') %}
+		{{ field(class=css_class, **kwargs) }}
+		<div class="form-group">
+			{% for error in field.errors %}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					{{ error|e }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endmacro %}
+
+<h2>{{ title }}</h2>
+
+<div style="max-width: 500px;">
+	<form id="userform" role="form" method="POST">
+		{{ form.hidden_tag() }}
+		<div class="form-group">
+			{{ with_errors(form.username, class="form-control", placeholder="Username") }}
+			{{ with_errors(form.password, class="form-control", placeholder="Password") }}
+			{{ form.newUser.label }}: {{ form.newUser() }}
+		</div>
+		<input type="submit" class="btn btn-default" value="Submit">
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#add_ingredient').click(function() {
+			AddIngredient(document.getElementById('ingredients').getElementsByClassName('form-group well well-sm'));
+		});
+	});
+
+	function AddIngredient(elem) {
+
+	}
+</script>
+
+{% endblock %}

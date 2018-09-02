@@ -1,0 +1,82 @@
+from PyServer import app
+from PyServer.form import RecipeForm, IngredientForm
+from flask import redirect, render_template, request, url_for, jsonify, abort, session, flash
+from PyServer.views import apiUrl
+from datetime import datetime
+from Model.recipe import Recipe
+import urllib
+import util
+import json
+
+from PyServer.mongodb import db
+from bson.objectid import ObjectId
+
+
+@app.route('/recipes/')
+def recipes():
+    """Renders the recipe page"""
+    try:
+        url = apiUrl + '/recipes/'
+        data = urllib.request.urlopen(url, timeout=1)
+        data = json.loads(data.read().decode('utf-8'))
+    except urllib.error.URLError:
+        data=[]
+        flash('No response from API Server')
+    
+    return render_template(
+        'recipes.html',
+        title='All Recipes',
+        year=datetime.now().year,
+        recipes=data,
+        app=app
+    )
+
+
+@app.route('/recipes/<id>/')
+def recipe(id):
+    """Renders the recipe page"""
+    try:
+        url = apiUrl + 'recipes/' + id
+        data = urllib.request.urlopen(url, timeout=1)
+        data = json.loads(data.read().decode('utf-8'))
+        return render_template(
+            'showrecipe.html',
+            title='All Recipes',
+            year=datetime.now().year,
+            recipe=data,
+        )
+
+    except urllib.error.URLError:
+        return abort(404)
+
+
+@app.route('/recipes/add/', methods=['GET', 'POST'])
+def addrecipe():
+    """Renders the recipe submission page."""
+    try:
+        if session['username']:
+            print(session['username'])
+            recipe_obj = Recipe()
+            form = RecipeForm(obj=recipe_obj)
+
+            if request.method == 'POST':
+                if form.validate():
+                    recipe_obj.name = form.name.data
+                    recipe_obj.ingredients = form.ingredients.data
+                    recipe_obj.image = form.image.data
+                    recipe_obj.directions = form.directions.data
+                    recipe_obj.tips = form.tips.data
+
+                    # Converts object to dict and inserts it to db
+                    recipe_id = db.recipes.insert_one(util.dictify(recipe_obj)).inserted_id
+                    return redirect('/recipes/' + str(ObjectId(recipe_id)))
+
+            return render_template(
+                'addrecipe.html',
+                title='Submit Recipe',
+                year=datetime.now().year,
+                form=form,
+                apiUrl=apiUrl
+            )
+    except KeyError:
+        abort(403)
