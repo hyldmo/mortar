@@ -13,11 +13,11 @@ if __name__ == '__main__':
     logger = logging.getLogger()
 
     if app.debug:
-        app.run()
+        app.run(host='0.0.0.0', port=PORT)
 
     else:
         try:
-            serve(app, host='0.0.0.0', port=config('PORT', cast=int))
+            serve(app, host='0.0.0.0', port=PORT)
 
         except SystemExit:
             app.logger.error('Server shutdown.')
